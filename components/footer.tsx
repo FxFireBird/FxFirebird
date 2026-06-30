@@ -3,110 +3,114 @@
 import Link from "next/link"
 
 const footerLinks = {
-  product: [
-    { label: "Documentation", href: "#" },
-    { label: "Downloads", href: "#" },
+  products: [
+    { label: "Bagayoda", href: "#features" },
     { label: "Free Tools", href: "#tools" },
-    { label: "Pricing", href: "#pricing" },
+    { label: "Downloads", href: "#downloads" },
   ],
-  company: [
-    { label: "About", href: "#" },
-    { label: "Contact", href: "#" },
-    { label: "Blog", href: "#" },
+  support: [
+    { label: "FAQ", href: "#faq" },
+    { label: "Contact", href: "mailto:support@fxfirebird.com" },
   ],
   legal: [
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
-    { label: "Refund Policy", href: "#" },
+    { label: "Privacy", href: "#" },
+    { label: "Terms", href: "#" },
   ],
 }
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/50 bg-background">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        <div className="grid gap-8 lg:grid-cols-4">
-          {/* Brand */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="h-5 w-5 text-primary-foreground"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                </svg>
-              </div>
-              <span className="text-lg font-semibold text-foreground">FxFirebird</span>
-            </Link>
-            <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              Professional trading infrastructure for serious traders. Adaptive risk management and automated execution.
+    <footer className="border-t border-border bg-background dark:bg-black">
+      <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
+        <div className="grid gap-8 lg:grid-cols-5">
+
+          <div className="lg:col-span-2">
+            <Link href="/" className="flex items-center">
+  <img
+    src="/logo.png"
+    alt="FxFirebird"
+    className="h-18 w-auto"
+  />
+</Link>
+
+            <p className="mt-4 max-w-sm text-sm text-muted-foreground leading-relaxed">
+              Professional trading infrastructure for serious traders.
             </p>
           </div>
 
-          {/* Links */}
-          <div className="grid grid-cols-3 gap-8 lg:col-span-3">
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">Product</h3>
-              <ul className="mt-4 space-y-3">
-                {footerLinks.product.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">Company</h3>
-              <ul className="mt-4 space-y-3">
-                {footerLinks.company.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">Legal</h3>
-              <ul className="mt-4 space-y-3">
-                {footerLinks.legal.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div>
+            <h3 className="text-sm font-semibold text-foreground mb-4">
+              Products
+            </h3>
+
+            <ul className="space-y-3">
+              {footerLinks.products.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-foreground mb-4">
+              Support
+            </h3>
+
+            <ul className="space-y-3">
+              {footerLinks.support.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-foreground mb-4">
+              Legal
+            </h3>
+
+            <ul className="space-y-3">
+              {footerLinks.legal.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
         </div>
 
-        {/* Bottom */}
-        <div className="mt-12 border-t border-border/50 pt-8">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} FxFirebird. All rights reserved.
-            </p>
+        <div className="mt-12 pt-6 border-t border-border">
+
+          <div className="space-y-3">
+
             <p className="text-xs text-muted-foreground">
-              Trading involves risk. Past performance is not indicative of future results.
+              {new Date().getFullYear()} FxFirebird. All rights reserved.
             </p>
+
+            <p className="text-[11px] text-muted-foreground leading-relaxed">
+              Risk Warning: Trading leveraged products carries a high level of risk and may not be suitable for all investors. Past performance does not guarantee future results.
+            </p>
+
           </div>
+
         </div>
       </div>
     </footer>

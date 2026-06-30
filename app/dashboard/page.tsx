@@ -1,215 +1,213 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { 
-  CreditCard, 
-  Activity, 
-  Shield, 
-  Calendar,
-  CheckCircle2,
-  Download,
-  Bell,
-  Monitor,
-  Zap,
-  TrendingUp
-} from "lucide-react"
+import { User, Key, Globe, Calendar, Shield, Zap, TrendingUp, Clock } from "lucide-react"
 
-const topCards = [
-  { 
-    label: "Subscription Plan", 
-    value: "Full Suite", 
-    icon: CreditCard, 
-    accent: "from-orange-500 to-orange-600" 
-  },
-  { 
-    label: "Active Markets", 
-    value: "Forex & Synthetics", 
-    icon: Activity, 
-    accent: "from-green-500 to-emerald-600" 
-  },
-  { 
-    label: "License Status", 
-    value: "Active", 
-    icon: Shield, 
-    accent: "from-blue-500 to-cyan-600" 
-  },
-  { 
-    label: "Next Billing", 
-    value: "Jan 15, 2025", 
-    icon: Calendar, 
-    accent: "from-purple-500 to-violet-600" 
-  },
-]
-
-const accountStatus = [
-  { label: "License Connected", status: true },
-  { label: "Forex & Gold Enabled", status: true },
-  { label: "Synthetic Indices Enabled", status: true },
-]
-
-const recentActivity = [
-  { text: "License activated on new device", time: "2 hours ago", icon: Shield },
-  { text: "Bagayoda v3.2.1 update installed", time: "1 day ago", icon: Download },
-  { text: "New device connected: MacBook Pro", time: "3 days ago", icon: Monitor },
-]
-
-const quickActions = [
-  { label: "Download MT5 Version", icon: Download, href: "/dashboard/downloads" },
-  { label: "Download MT4 Version", icon: Download, href: "/dashboard/downloads" },
-  { label: "Download Trade Manager", icon: TrendingUp, href: "/dashboard/downloads" },
-  { label: "Risk Reward Calculator", icon: Zap, href: "/dashboard/downloads" },
-  { label: "Position Size Calculator", icon: Activity, href: "/dashboard/downloads" },
-]
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
+// Placeholder data - would come from API in real app
+const accountData = {
+  name: "John Doe",
+  email: "john@example.com",
+  memberSince: "January 2024",
 }
 
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
+const licenseData = {
+  status: "Active",
+  plan: "Full Suite",
+  accountNumber: "MT5-123456789",
+  broker: "IC Markets",
+}
+
+const marketsData = {
+  forex: ["EURUSD", "GBPUSD", "USDJPY", "GBPJPY"],
+  gold: ["XAUUSD"],
+  synthetic: ["Volatility 75", "Crash 1000", "Boom 1000"],
+}
+
+const expiryData = {
+  date: "July 15, 2026",
+  daysRemaining: 42,
 }
 
 export default function DashboardPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Page Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-        <p className="text-muted-foreground mt-1">Welcome back to your FxFirebird portal</p>
-      </div>
-
-      {/* Top Stats Cards */}
-      <motion.div 
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
       >
-        {topCards.map((card) => (
-          <motion.div
-            key={card.label}
-            variants={item}
-            className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-5 hover:border-orange-500/30 transition-all group"
-          >
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">{card.label}</p>
-                <p className="text-xl font-semibold text-foreground mt-1">{card.value}</p>
-              </div>
-              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${card.accent} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                <card.icon className="w-5 h-5 text-white" />
+        <h1 className="text-2xl font-semibold text-foreground">My Account</h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          Manage your license and trading settings.
+        </p>
+      </motion.div>
+
+      {/* Dashboard Grid */}
+      <div className="grid gap-4 md:grid-cols-2">
+        {/* Account Info */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="rounded-xl border border-border bg-card p-6"
+        >
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
+              <User className="w-5 h-5 text-muted-foreground" />
+            </div>
+            <h2 className="text-lg font-semibold text-foreground">Account</h2>
+          </div>
+          <div className="space-y-4">
+            <div>
+              <p className="text-xs text-muted-foreground mb-1">Name</p>
+              <p className="text-sm text-foreground font-medium">{accountData.name}</p>
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground mb-1">Email</p>
+              <p className="text-sm text-foreground font-medium">{accountData.email}</p>
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground mb-1">Member Since</p>
+              <p className="text-sm text-foreground font-medium">{accountData.memberSince}</p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* License Status */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.15 }}
+          className="rounded-xl border border-border bg-card p-6"
+        >
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-10 h-10 rounded-lg bg-[#FF6B00]/10 flex items-center justify-center">
+              <Key className="w-5 h-5 text-[#FF6B00]" />
+            </div>
+            <h2 className="text-lg font-semibold text-foreground">License Status</h2>
+          </div>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-muted-foreground">Status</p>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/10 text-xs font-medium text-green-500">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                {licenseData.status}
+              </span>
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground mb-1">Plan</p>
+              <p className="text-sm text-foreground font-medium">{licenseData.plan}</p>
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground mb-1">Trading Account</p>
+              <p className="text-sm text-foreground font-medium">{licenseData.accountNumber}</p>
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground mb-1">Broker</p>
+              <p className="text-sm text-foreground font-medium">{licenseData.broker}</p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Active Markets */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="rounded-xl border border-border bg-card p-6"
+        >
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
+              <Globe className="w-5 h-5 text-muted-foreground" />
+            </div>
+            <h2 className="text-lg font-semibold text-foreground">Active Markets</h2>
+          </div>
+          <div className="space-y-4">
+            <div>
+              <p className="text-xs text-muted-foreground mb-2 flex items-center gap-2">
+                <TrendingUp className="w-3 h-3" />
+                Forex
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {marketsData.forex.map((market) => (
+                  <span
+                    key={market}
+                    className="px-2.5 py-1 rounded-md bg-muted text-xs font-medium text-foreground"
+                  >
+                    {market}
+                  </span>
+                ))}
               </div>
             </div>
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Account Status */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6"
-        >
-          <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
-            <Shield className="w-5 h-5 text-orange-500" />
-            Account Status
-          </h2>
-          <div className="mt-4 space-y-3">
-            {accountStatus.map((item) => (
-              <div key={item.label} className="flex items-center justify-between py-2 border-b border-border/50 last:border-0">
-                <span className="text-sm text-muted-foreground">{item.label}</span>
-                <div className={`flex items-center gap-1.5 text-sm ${item.status ? "text-green-500" : "text-red-500"}`}>
-                  <CheckCircle2 className="w-4 h-4" />
-                  {item.status ? "Enabled" : "Disabled"}
-                </div>
+            <div>
+              <p className="text-xs text-muted-foreground mb-2 flex items-center gap-2">
+                <Shield className="w-3 h-3" />
+                Gold
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {marketsData.gold.map((market) => (
+                  <span
+                    key={market}
+                    className="px-2.5 py-1 rounded-md bg-[#FF6B00]/10 text-xs font-medium text-[#FF6B00]"
+                  >
+                    {market}
+                  </span>
+                ))}
               </div>
-            ))}
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground mb-2 flex items-center gap-2">
+                <Zap className="w-3 h-3" />
+                Synthetic
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {marketsData.synthetic.map((market) => (
+                  <span
+                    key={market}
+                    className="px-2.5 py-1 rounded-md bg-muted text-xs font-medium text-foreground"
+                  >
+                    {market}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </motion.div>
 
-        {/* Recent Activity */}
+        {/* Expiry Date */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6"
+          transition={{ duration: 0.4, delay: 0.25 }}
+          className="rounded-xl border border-border bg-card p-6"
         >
-          <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
-            <Bell className="w-5 h-5 text-orange-500" />
-            Recent Activity
-          </h2>
-          <div className="mt-4 space-y-4">
-            {recentActivity.map((activity, idx) => (
-              <div key={idx} className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center flex-shrink-0">
-                  <activity.icon className="w-4 h-4 text-orange-500" />
-                </div>
-                <div>
-                  <p className="text-sm text-foreground">{activity.text}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">{activity.time}</p>
-                </div>
-              </div>
-            ))}
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
+              <Calendar className="w-5 h-5 text-muted-foreground" />
+            </div>
+            <h2 className="text-lg font-semibold text-foreground">Expiry Date</h2>
           </div>
-        </motion.div>
-
-        {/* Quick Actions */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="bg-card/50 backdrop-blur-sm border border-border rounded-2xl p-6"
-        >
-          <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
-            <Zap className="w-5 h-5 text-orange-500" />
-            Quick Actions
-          </h2>
-          <div className="mt-4 space-y-2">
-            {quickActions.map((action) => (
-              <a
-                key={action.label}
-                href={action.href}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-orange-500/10 text-muted-foreground hover:text-orange-500 transition-all group"
-              >
-                <action.icon className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                <span className="text-sm">{action.label}</span>
-              </a>
-            ))}
+          <div className="space-y-4">
+            <div>
+              <p className="text-xs text-muted-foreground mb-1">License Expires</p>
+              <p className="text-2xl font-bold text-foreground">{expiryData.date}</p>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Clock className="w-4 h-4" />
+              <span>{expiryData.daysRemaining} days remaining</span>
+            </div>
+            <div className="pt-2">
+              <div className="h-2 rounded-full bg-muted overflow-hidden">
+                <div 
+                  className="h-full bg-[#FF6B00] rounded-full"
+                  style={{ width: `${Math.min((expiryData.daysRemaining / 30) * 100, 100)}%` }}
+                />
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
-
-      {/* System Status Banner */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-2xl p-6 flex items-center justify-between flex-wrap gap-4"
-      >
-        <div className="flex items-center gap-3">
-          <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-          <div>
-            <p className="text-foreground font-medium">All Systems Operational</p>
-            <p className="text-sm text-muted-foreground">Last checked: 2 minutes ago</p>
-          </div>
-        </div>
-        <a
-          href="https://status.fxfirebird.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-green-500 hover:text-green-400 transition-colors"
-        >
-          View Status Page &rarr;
-        </a>
-      </motion.div>
     </div>
   )
 }

@@ -1,186 +1,247 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Check, X } from "lucide-react"
+import { Check, X, Minus } from "lucide-react"
+import { useTranslation } from "@/lib/i18n"
 
-const comparisonData = [
+type FeatureStatus = "full" | "partial" | "none"
+
+interface ComparisonFeature {
+  nameKey: string
+  manual: FeatureStatus
+  traditional: FeatureStatus
+  indicators: FeatureStatus
+  bagayoda: FeatureStatus
+}
+
+const features: ComparisonFeature[] = [
   {
-    title: "Manual Trading",
-    highlighted: false,
-    items: [
-      { text: "Emotional decisions", positive: false },
-      { text: "Fixed lot sizing", positive: false },
-      { text: "Manual market selection", positive: false },
-      { text: "Difficult scaling", positive: false },
-      { text: "Requires constant monitoring", positive: false },
-    ],
+    nameKey: "comparison.riskControl",
+    manual: "partial",
+    traditional: "partial",
+    indicators: "none",
+    bagayoda: "full",
   },
   {
-    title: "Traditional EA",
-    highlighted: false,
-    items: [
-      { text: "Automated entries", positive: true },
-      { text: "Static risk model", positive: false },
-      { text: "Limited market adaptability", positive: false },
-      { text: "Same settings for all accounts", positive: false },
-      { text: "High risk during changing conditions", positive: false },
-    ],
+    nameKey: "comparison.cloudManagement",
+    manual: "none",
+    traditional: "none",
+    indicators: "none",
+    bagayoda: "full",
   },
   {
-    title: "Bagayoda System",
-    highlighted: true,
-    badge: "Recommended",
-    items: [
-      { text: "Adaptive risk management", positive: true },
-      { text: "Dynamic lot sizing", positive: true },
-      { text: "Intelligent market selection", positive: true },
-      { text: "Account-size adaptation", positive: true },
-      { text: "Multi-market infrastructure", positive: true },
-      { text: "Cloud licensing", positive: true },
-      { text: "Designed for long-term scalability", positive: true },
-    ],
+    nameKey: "comparison.multiMarket",
+    manual: "partial",
+    traditional: "partial",
+    indicators: "partial",
+    bagayoda: "full",
+  },
+  {
+    nameKey: "comparison.licenseControl",
+    manual: "none",
+    traditional: "none",
+    indicators: "none",
+    bagayoda: "full",
+  },
+  {
+    nameKey: "comparison.drawdownProtection",
+    manual: "none",
+    traditional: "partial",
+    indicators: "none",
+    bagayoda: "full",
+  },
+  {
+    nameKey: "comparison.centralizedUpdates",
+    manual: "none",
+    traditional: "none",
+    indicators: "none",
+    bagayoda: "full",
+  },
+  {
+    nameKey: "comparison.accountPermissions",
+    manual: "none",
+    traditional: "none",
+    indicators: "none",
+    bagayoda: "full",
   },
 ]
 
-export function ComparisonSection() {
+function StatusIcon({ status }: { status: FeatureStatus }) {
+  if (status === "full") {
+    return (
+      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-green-500/20">
+        <Check className="w-4 h-4 text-green-500" />
+      </div>
+    )
+  }
+  if (status === "partial") {
+    return (
+      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-yellow-500/20">
+        <Minus className="w-4 h-4 text-yellow-500" />
+      </div>
+    )
+  }
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-orange-500/[0.02] to-transparent" />
-      
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
+    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-muted">
+      <X className="w-4 h-4 text-muted-foreground" />
+    </div>
+  )
+}
+
+export function ComparisonSection() {
+  const { t } = useTranslation()
+
+  const columns = [
+    { key: "manual", labelKey: "comparison.manual" },
+    { key: "traditional", labelKey: "comparison.traditional" },
+    { key: "indicators", labelKey: "comparison.indicators" },
+    { key: "bagayoda", labelKey: "comparison.bagayoda", highlight: true },
+  ]
+
+  return (
+    <section className="relative py-20 lg:py-24 bg-card dark:bg-neutral-950">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Why Bagayoda Is Different
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 text-balance">
+            {t("comparison.title")}
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-            Most trading solutions focus on entries. Bagayoda focuses on account survival, capital growth and risk adaptation.
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto">
+            {t("comparison.subtitle")}
           </p>
         </motion.div>
 
-        {/* Comparison grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-4">
-          {comparisonData.map((column, columnIndex) => (
+        {/* Desktop Table */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="hidden md:block overflow-hidden rounded-2xl border border-border bg-background"
+        >
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="px-6 py-5 text-left text-sm font-semibold text-foreground">
+                    {t("comparison.feature")}
+                  </th>
+                  {columns.map((col) => (
+                    <th
+                      key={col.key}
+                      className={`px-6 py-5 text-center text-sm font-semibold ${
+                        col.highlight
+                          ? "bg-[#FF6B00]/10 text-[#FF6B00]"
+                          : "text-foreground"
+                      }`}
+                    >
+                      {t(col.labelKey)}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {features.map((feature, index) => (
+                  <tr
+                    key={feature.nameKey}
+                    className={index !== features.length - 1 ? "border-b border-border" : ""}
+                  >
+                    <td className="px-6 py-4 text-sm text-foreground font-medium">
+                      {t(feature.nameKey)}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex justify-center">
+                        <StatusIcon status={feature.manual} />
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex justify-center">
+                        <StatusIcon status={feature.traditional} />
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex justify-center">
+                        <StatusIcon status={feature.indicators} />
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 bg-[#FF6B00]/5">
+                      <div className="flex justify-center">
+                        <StatusIcon status={feature.bagayoda} />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
+
+        {/* Mobile Cards */}
+        <div className="md:hidden space-y-4">
+          {features.map((feature, index) => (
             <motion.div
-              key={column.title}
-              initial={{ opacity: 0, y: 30 }}
+              key={feature.nameKey}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: columnIndex * 0.15 }}
-              className="relative"
+              transition={{ duration: 0.4, delay: index * 0.05 }}
+              className="rounded-xl border border-border bg-background p-4"
             >
-              {/* Recommended badge */}
-              {column.badge && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.5 }}
-                  className="absolute -top-3 left-1/2 -translate-x-1/2 z-10"
-                >
-                  <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold bg-accent text-accent-foreground shadow-lg shadow-orange-500/20">
-                    {column.badge}
-                  </span>
-                </motion.div>
-              )}
-
-              {/* Card */}
-              <div
-                className={`relative h-full rounded-2xl border transition-all duration-300 ${
-                  column.highlighted
-                    ? "bg-gradient-to-b from-card/80 to-card border-orange-500/50 shadow-xl shadow-orange-500/10"
-                    : "bg-card/50 border-border/50 hover:border-border hover:bg-card/70"
-                }`}
-              >
-                {/* Glow effect for highlighted card */}
-                {column.highlighted && (
-                  <>
-                    <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-b from-orange-500/20 via-orange-500/10 to-transparent blur-sm -z-10" />
-                    <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-b from-orange-500/10 to-transparent blur-md -z-20" />
-                  </>
-                )}
-
-                <div className="p-6 lg:p-8">
-                  {/* Column title */}
-                  <h3
-                    className={`text-xl font-semibold mb-6 text-center ${
-                      column.highlighted ? "text-accent" : "text-foreground"
-                    }`}
-                  >
-                    {column.title}
-                  </h3>
-
-                  {/* Items list */}
-                  <ul className="space-y-4">
-                    {column.items.map((item, itemIndex) => (
-                      <motion.li
-                        key={item.text}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          duration: 0.3,
-                          delay: columnIndex * 0.15 + itemIndex * 0.05 + 0.3,
-                        }}
-                        className="flex items-start gap-3"
-                      >
-                        <span
-                          className={`flex-shrink-0 mt-0.5 ${
-                            item.positive
-                              ? column.highlighted
-                                ? "text-accent"
-                                : "text-green-500"
-                              : "text-muted-foreground/50"
-                          }`}
-                        >
-                          {item.positive ? (
-                            <Check className="w-5 h-5" strokeWidth={2.5} />
-                          ) : (
-                            <X className="w-5 h-5" strokeWidth={2.5} />
-                          )}
-                        </span>
-                        <span
-                          className={`text-sm ${
-                            item.positive
-                              ? "text-foreground"
-                              : "text-muted-foreground"
-                          }`}
-                        >
-                          {item.text}
-                        </span>
-                      </motion.li>
-                    ))}
-                  </ul>
-
-                  {/* CTA for highlighted column */}
-                  {column.highlighted && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: 0.8 }}
-                      className="mt-8 pt-6 border-t border-border/50"
+              <h3 className="text-sm font-semibold text-foreground mb-4">
+                {t(feature.nameKey)}
+              </h3>
+              <div className="grid grid-cols-4 gap-2">
+                {columns.map((col) => (
+                  <div key={col.key} className="flex flex-col items-center gap-2">
+                    <StatusIcon
+                      status={feature[col.key as keyof typeof feature] as FeatureStatus}
+                    />
+                    <span
+                      className={`text-xs text-center ${
+                        col.highlight ? "text-[#FF6B00] font-medium" : "text-muted-foreground"
+                      }`}
                     >
-                      <a
-                        href="#pricing"
-                        className="block w-full py-3 px-4 text-center text-sm font-medium rounded-lg bg-accent text-accent-foreground hover:bg-accent/90 transition-colors"
-                      >
-                        Get Started
-                      </a>
-                    </motion.div>
-                  )}
-                </div>
+                      {t(col.labelKey).split(" ")[0]}
+                    </span>
+                  </div>
+                ))}
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Legend */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground"
+        >
+          <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-green-500/20">
+              <Check className="w-3 h-3 text-green-500" />
+            </div>
+            <span>{t("comparison.fullSupport")}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-yellow-500/20">
+              <Minus className="w-3 h-3 text-yellow-500" />
+            </div>
+            <span>{t("comparison.partialSupport")}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-muted">
+              <X className="w-3 h-3 text-muted-foreground" />
+            </div>
+            <span>{t("comparison.notAvailable")}</span>
+          </div>
+        </motion.div>
       </div>
     </section>
   )
