@@ -26,12 +26,12 @@ export function Footer() {
 
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center">
-  <img
-    src="/logo.png"
-    alt="FxFirebird"
-    className="h-18 w-auto"
-  />
-</Link>
+              <img
+                src="/logo1.png"
+                alt="FxFirebird"
+                className="h-18 w-auto"
+              />
+            </Link>
 
             <p className="mt-4 max-w-sm text-sm text-muted-foreground leading-relaxed">
               Professional trading infrastructure for serious traders.

@@ -1,12 +1,12 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { User, Key, Globe, Calendar, Shield, Zap, TrendingUp, Clock } from "lucide-react"
 
-// Placeholder data - would come from API in real app
-const accountData = {
-  name: "John Doe",
-  email: "john@example.com",
+const defaultAccountData = {
+  name: "FxFirebird User",
+  email: "user@fxfirebird.com",
   memberSince: "January 2024",
 }
 
@@ -29,6 +29,18 @@ const expiryData = {
 }
 
 export default function DashboardPage() {
+  const [accountData, setAccountData] = useState(defaultAccountData)
+
+  useEffect(() => {
+    const email = window.localStorage.getItem("fxfirebird-user-email")
+    if (email) {
+      setAccountData((current) => ({
+        ...current,
+        email,
+      }))
+    }
+  }, [])
+
   return (
     <div className="space-y-6">
       {/* Page Header */}

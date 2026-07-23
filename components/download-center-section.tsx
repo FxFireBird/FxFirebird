@@ -10,8 +10,8 @@ const downloads = [
     title: "Bagayoda For MT5",
     description:
       "Full-featured expert advisor for MetaTrader 5 platform with cloud integration.",
-    version: "v2.4.1",
-    size: "2.8 MB",
+    version: "v1.0.0",
+    size: "336 KB",
     available: true,
     buttonText: "Download for MT5",
   },
@@ -34,7 +34,7 @@ const guides = [
     description:
       "Step-by-step instructions for installing, configuring and managing risk settings with Bagayoda.",
     type: "PDF",
-    pages: "12 pages",
+    pages: "3 pages",
     buttonText: "Download Guide",
   },
 ]
@@ -237,7 +237,12 @@ export function DownloadCenterSection() {
 
           <div className="grid md:grid-cols-3 gap-6">
 
-            <div className="rounded-2xl border border-border bg-background p-8 text-center">
+            <a
+              href="https://track.deriv.com/_lUPrAuH_5BW2vdm9PpHVCmNd7ZgqdRLk/1/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-2xl border border-border bg-background p-8 text-center hover:shadow-md transition"
+            >
               <img
                 src="/logos/deriv.png"
                 alt="Deriv"
@@ -247,9 +252,14 @@ export function DownloadCenterSection() {
               <p className="mt-4 text-sm text-muted-foreground">
                 Recommended Broker
               </p>
-            </div>
+            </a>
 
-            <div className="rounded-2xl border border-border bg-background p-8 text-center">
+            <a
+              href="https://strex.live/la-com/DAzs7d0x"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-2xl border border-border bg-background p-8 text-center hover:shadow-md transition"
+            >
               <img
                 src="/logos/startrader.png"
                 alt="StarTrader"
@@ -259,9 +269,14 @@ export function DownloadCenterSection() {
               <p className="mt-4 text-sm text-muted-foreground">
                 Professional Trading Broker
               </p>
-            </div>
+            </a>
 
-            <div className="rounded-2xl border border-border bg-background p-8 text-center">
+            <a
+              href="https://my.govpsfx.com/?ref=MzU3NjQ6OkVO"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-2xl border border-border bg-background p-8 text-center hover:shadow-md transition"
+            >
               <img
                 src="/logos/govpsfx.png"
                 alt="GoVPSFX"
@@ -271,7 +286,7 @@ export function DownloadCenterSection() {
               <p className="mt-4 text-sm text-muted-foreground">
                 Recommended VPS Provider
               </p>
-            </div>
+            </a>
 
           </div>
 

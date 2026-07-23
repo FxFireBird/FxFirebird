@@ -6,7 +6,7 @@ import { HelpCircle, MessageCircle, FileText, Send, ChevronDown, ExternalLink, B
 
 const supportOptions = [
   { name: "Create Ticket", description: "Submit a support request", icon: MessageCircle, accent: "from-orange-500 to-orange-600", action: "ticket" },
-  { name: "Telegram Support", description: "Chat with our team", icon: Send, accent: "from-blue-500 to-cyan-600", href: "https://t.me/fxfirebird" },
+  { name: "Telegram Support", description: "Chat with our team", icon: Send, accent: "from-blue-500 to-cyan-600", href: "https://t.me/Anka_Oscar" },
   { name: "Documentation", description: "Read guides and tutorials", icon: BookOpen, accent: "from-purple-500 to-violet-600", href: "/docs" },
   { name: "Live Support", description: "Schedule a call", icon: Headphones, accent: "from-green-500 to-emerald-600", action: "call" },
 ]
@@ -16,7 +16,7 @@ const faqs = [
   { question: "Can I transfer my license to a different account?", answer: "License transfers are handled on a case-by-case basis. Please contact our support team with your request and we'll assist you with the process." },
   { question: "What happens when my subscription expires?", answer: "When your subscription expires, the software will continue to function but you won't receive new updates. You can renew your subscription at any time from the Billing page to restore full access." },
   { question: "How do I request a refund?", answer: "We offer a 30-day money-back guarantee. If you're not satisfied with your purchase, contact our support team within 30 days of your purchase date and we'll process your refund." },
-  { question: "Is there a limit to how many devices I can use?", answer: "Yes, the device limit depends on your plan. Forex & Gold and Synthetic Indices plans include 5 device slots, while the Full Suite plan includes 10 device slots. You can manage connected devices from the Licenses page." },
+  { question: "Is there a limit to how many accounts I can use?", answer: "Yes, the accounts limit depends on your plan. Forex & Gold and Synthetic Indices plans include 1 account slot, while the Full Suite plan includes 2 account slots. You can manage connected accounts from the Licenses page." },
 ]
 
 export default function SupportPage() {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
@@ -10,18 +10,37 @@ import { ArrowLeft, Check, Upload, Send, Coins, TrendingUp, Layers, MessageCircl
 import { useTranslation } from "@/lib/i18n"
 
 const plans = [
-  { id: "forex-gold", name: "Forex & Gold", price: 49, icon: Coins },
-  { id: "synthetic", name: "Synthetic Indices", price: 79, icon: TrendingUp, popular: true },
-  { id: "full-suite", name: "Full Suite", price: 129, icon: Layers },
+  { id: "forex-gold", name: "Forex & Gold", price: 29, icon: Coins },
+  { id: "synthetic", name: "Synthetic Indices", price: 29, icon: TrendingUp, popular: true },
+  { id: "full-suite", name: "Full Suite", price: 49, icon: Layers },
 ]
 
 const paymentMethods = [
-  { id: "usdt-trc20", name: "USDT TRC20", icon: "/crypto-usdt.svg" },
-  { id: "usdt-bep20", name: "USDT BEP20", icon: "/crypto-usdt.svg" },
-  { id: "binance-pay", name: "Binance Pay", icon: "/binance.svg" },
-  { id: "perfect-money", name: "Perfect Money", icon: "/perfect-money.svg" },
-  { id: "bank-transfer", name: "Bank Transfer", icon: "/bank.svg" },
-]
+  { 
+    id: "usdt-trc20", 
+    name: "USDT TRC20", 
+    icon: "/crypto-usdt.svg",
+    address: "TLQg9MvM4G2ycMDsnzQJPh6nXzdJ75WerL",
+    network: "Tron (TRC20)",
+    qrCode: "/qr-usdt-trc20.png" // Place tes images QR dans le dossier public/
+  },
+  { 
+    id: "usdt-bep20", 
+    name: "USDT BEP20", 
+    icon: "/crypto-usdt.svg",
+    address: "0x0350b1cd8913F2faeA1bb929b64e0cD02Aeeb094",
+    network: "BNB Smart Chain (BEP20)",
+    qrCode: "/qr-usdt-bep20.png"
+  },
+  { 
+    id: "solana", 
+    name: "Solana", 
+    icon: "/crypto-solana.svg",
+    address: "5g2BudMwMFvHJcxETyrpLwrMJVbCn23vbwpjQhSvRoTp",
+    network: "Solana (SOL)",
+    qrCode: "/qr-solana.png"
+  },
+  ]
 
 const supportChannels = [
   { id: "telegram", name: "Telegram", icon: MessageCircle },
@@ -36,13 +55,66 @@ export default function LicensePage() {
   const [selectedSupport, setSelectedSupport] = useState<string>("telegram")
   const [transactionId, setTransactionId] = useState("")
   const [screenshot, setScreenshot] = useState<File | null>(null)
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl)
+      }
+    }
+  }, [previewUrl])
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setScreenshot(e.target.files[0])
+    const file = e.target.files?.[0]
+
+    if (!file) {
+      return
     }
+
+    setScreenshot(file)
+
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl)
+    }
+
+    setPreviewUrl(URL.createObjectURL(file))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setSubmitError(null)
+
+    if (!screenshot) {
+      setSubmitError("Veuillez télécharger la capture de paiement.")
+      return
+    }
+
+    setIsSubmitting(true)
+
+    const formData = new FormData()
+    formData.append("proof", screenshot)
+    formData.append("transactionId", transactionId)
+    formData.append("selectedPlan", selectedPlan)
+    formData.append("selectedPayment", selectedPayment)
+
+    const response = await fetch("/api/license", {
+      method: "POST",
+      body: formData,
+    })
+
+    const result = await response.json()
+    setIsSubmitting(false)
+
+    if (!response.ok) {
+      setSubmitError(result?.error ?? "Erreur lors de l’envoi de la preuve.")
+      return
+    }
+
+    setIsSubmitted(true)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -81,6 +153,23 @@ export default function LicensePage() {
             <p className="text-muted-foreground mb-8">
               {t("licensePage.processing")}
             </p>
+
+            {previewUrl && (
+              <div className="mb-8 rounded-xl border border-border/70 bg-card p-4 text-left">
+                <p className="text-sm font-medium text-foreground mb-3">Proof of payment preview</p>
+                <img
+                  src={previewUrl}
+                  alt="Proof of payment preview"
+                  className="w-full max-h-72 object-contain rounded-lg"
+                />
+                {transactionId && (
+                  <p className="mt-3 text-sm text-muted-foreground break-all">
+                    Transaction hash: <span className="font-medium text-foreground">{transactionId}</span>
+                  </p>
+                )}
+              </div>
+            )}
+
             <Link href="/">
               <Button className="bg-[#FF6B00] text-white hover:bg-[#CC5500]">
                 {t("nav.backToHome")}
@@ -245,6 +334,17 @@ export default function LicensePage() {
                     className="hidden"
                   />
                 </label>
+
+                {previewUrl && (
+                  <div className="mt-6">
+                    <p className="text-sm font-medium text-foreground mb-3">Preview</p>
+                    <img
+                      src={previewUrl}
+                      alt="Selected proof of payment"
+                      className="w-full max-h-72 object-contain rounded-lg border border-border"
+                    />
+                  </div>
+                )}
               </div>
             </motion.div>
 
@@ -264,6 +364,11 @@ export default function LicensePage() {
                 placeholder={t("licensePage.transactionIdPlaceholder")}
                 className="h-12 bg-card border-border"
               />
+              {transactionId && (
+                <p className="mt-3 text-sm text-muted-foreground break-all">
+                  Transaction hash: <span className="font-medium text-foreground">{transactionId}</span>
+                </p>
+              )}
             </motion.div>
 
             {/* Step 5: Support Channel */}
@@ -315,6 +420,9 @@ export default function LicensePage() {
               >
                 {isSubmitting ? "Submitting..." : t("licensePage.submitVerification")}
               </Button>
+              {submitError && (
+                <p className="text-center text-sm text-destructive mt-4">{submitError}</p>
+              )}
               <p className="text-center text-xs text-muted-foreground mt-4">
                 {t("licensePage.processing")}
               </p>

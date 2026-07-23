@@ -5,11 +5,10 @@ import { motion } from "framer-motion"
 import { CreditCard, Check, ArrowUpCircle, FileText, Download, Calendar } from "lucide-react"
 
 const plans = [
-  { name: "Forex & Gold", price: "$149", period: "/year", features: ["Forex Markets", "Gold/XAUUSD", "5 Device Slots", "Email Support"], current: false },
-  { name: "Synthetic Indices", price: "$149", period: "/year", features: ["Synthetic Markets", "Volatility Indices", "5 Device Slots", "Email Support"], current: false },
-  { name: "Full Suite", price: "$299", period: "/year", features: ["All Markets", "Priority Support", "10 Device Slots", "Free Updates"], current: true, popular: true },
+  { name: "Forex & Gold", oldPrice: "$99", price: "$29", period: "/year", features: ["Forex Markets", "Gold/XAUUSD", "5 Device Slots", "Email Support"], current: false },
+  { name: "Synthetic Indices", oldPrice: "$99", price: "$29", period: "/year", features: ["Synthetic Markets", "Volatility Indices", "5 Device Slots", "Email Support"], current: false },
+  { name: "Full Suite", oldPrice: "$199", price: "$49", period: "/year", features: ["All Markets", "Priority Support", "10 Device Slots", "Free Updates"], current: true, popular: true },
 ]
-
 const invoices = [
   { id: "INV-2024-001", date: "Jan 15, 2024", amount: "$299.00", status: "Paid" },
   { id: "INV-2023-012", date: "Jan 15, 2023", amount: "$249.00", status: "Paid" },
@@ -63,9 +62,14 @@ export default function BillingPage() {
             <motion.div key={plan.name} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} className={`relative bg-card/50 backdrop-blur-sm border rounded-2xl p-6 ${plan.current ? "border-orange-500/50 ring-1 ring-orange-500/20" : "border-border hover:border-orange-500/30"} transition-all`}>
               {plan.popular && <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-xs font-medium rounded-full">Current Plan</span>}
               <h3 className="text-lg font-semibold text-foreground mt-2">{plan.name}</h3>
-              <div className="flex items-baseline gap-1 mt-2">
-                <span className="text-3xl font-bold text-foreground">{plan.price}</span>
-                <span className="text-muted-foreground">{plan.period}</span>
+              <div className="flex items-baseline gap-2 mt-2">
+                {plan.oldPrice && (
+                  <span className="text-lg font-semibold text-muted-foreground line-through opacity-70">
+                    {plan.oldPrice}
+                  </span>
+                )}
+                <span className="text-3xl font-bold text-orange-500">{plan.price}</span>
+                <span className="text-sm font-medium text-muted-foreground">{plan.period}</span>
               </div>
               <ul className="mt-6 space-y-3">
                 {plan.features.map((feature) => (
