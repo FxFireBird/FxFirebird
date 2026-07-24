@@ -11,6 +11,7 @@ interface Plan {
   nameKey: string
   descKey: string
   monthlyPrice: number
+  annualPrice: number
   icon: typeof Coins
   features: string[]
   popular: boolean
@@ -20,7 +21,8 @@ const plans: Plan[] = [
   {
     nameKey: "license.forexGold.name",
     descKey: "license.forexGold.desc",
-    monthlyPrice: 49,
+    monthlyPrice: 29,
+    annualPrice: 199,
     icon: Coins,
     features: [
       "license.forexGold.f1",
@@ -35,7 +37,8 @@ const plans: Plan[] = [
   {
     nameKey: "license.synthetic.name",
     descKey: "license.synthetic.desc",
-    monthlyPrice: 79,
+    monthlyPrice: 29,
+    annualPrice: 199,
     icon: TrendingUp,
     features: [
       "license.synthetic.f1",
@@ -50,7 +53,8 @@ const plans: Plan[] = [
   {
     nameKey: "license.fullSuite.name",
     descKey: "license.fullSuite.desc",
-    monthlyPrice: 129,
+    monthlyPrice: 49,
+    annualPrice: 299,
     icon: Layers,
     features: [
       "license.fullSuite.f1",
@@ -68,12 +72,8 @@ export function LicenseSection() {
   const { t } = useTranslation()
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "annual">("monthly")
 
-  const getPrice = (monthlyPrice: number) => {
-    if (billingPeriod === "annual") {
-      // 30% discount for annual
-      return Math.round(monthlyPrice * 12 * 0.7)
-    }
-    return monthlyPrice
+  const getPrice = (monthlyPrice: number, annualPrice: number) => {
+    return billingPeriod === "annual" ? annualPrice : monthlyPrice
   }
 
   const getPeriodLabel = () => {
@@ -169,7 +169,7 @@ export function LicenseSection() {
               </div>
 
               <div className="mb-6">
-                <span className="text-4xl font-bold text-foreground">${getPrice(plan.monthlyPrice)}</span>
+                <span className="text-4xl font-bold text-foreground">${getPrice(plan.monthlyPrice, plan.annualPrice)}</span>
                 <span className="text-muted-foreground">{getPeriodLabel()}</span>
               </div>
 

@@ -5,9 +5,14 @@ import { motion } from "framer-motion"
 import { CreditCard, Check, ArrowUpCircle, FileText, Download, Calendar } from "lucide-react"
 
 const plans = [
-  { name: "Forex & Gold", oldPrice: "$99", price: "$29", period: "/year", features: ["Forex Markets", "Gold/XAUUSD", "5 Device Slots", "Email Support"], current: false },
-  { name: "Synthetic Indices", oldPrice: "$99", price: "$29", period: "/year", features: ["Synthetic Markets", "Volatility Indices", "5 Device Slots", "Email Support"], current: false },
-  { name: "Full Suite", oldPrice: "$199", price: "$49", period: "/year", features: ["All Markets", "Priority Support", "10 Device Slots", "Free Updates"], current: true, popular: true },
+  { name: "Forex & Gold", oldPrice: "$99", price: "$29", period: "/month", features: ["Forex Markets", "Gold/XAUUSD", "1 Trading Account", "Cloud Risk Management", "Drawdown Protection", "Email Support"], current: false },
+  { name: "Synthetic Indices", oldPrice: "$99", price: "$29", period: "/month", features: ["Synthetic Markets", "Volatility Indices", "Crash & Boom Indices", "1 Trading Account", "Cloud Risk Management", "Priority Support"], current: false },
+  { name: "Full Suite", oldPrice: "$199", price: "$49", period: "/month", features: ["All Markets", "Priority Support", "1 Trading Account", "Advanced Risk Controls", "Free Updates"], current: true, popular: true },
+]
+const annualPlans = [
+  { name: "Forex & Gold", oldPrice: "$349", price: "$199", period: "/year", features: ["Forex Markets", "Gold/XAUUSD", "1 Trading Account", "Cloud Risk Management", "Drawdown Protection", "Email Support"], current: false },
+  { name: "Synthetic Indices", oldPrice: "$349", price: "$199", period: "/year", features: ["Synthetic Markets", "Volatility Indices", "Crash & Boom Indices", "1 Trading Account", "Cloud Risk Management", "Priority Support"], current: false },
+  { name: "Full Suite", oldPrice: "$599", price: "$299", period: "/year", features: ["All Markets", "Priority Support", "1 Trading Account", "Advanced Risk Controls", "Free Updates"], current: false, popular: false },
 ]
 const invoices = [
   { id: "INV-2024-001", date: "Jan 15, 2024", amount: "$299.00", status: "Paid" },
@@ -17,6 +22,7 @@ const invoices = [
 
 export default function BillingPage() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("annual")
+  const currentPlans = billingCycle === "annual" ? annualPlans : plans
 
   return (
     <div className="space-y-8">
@@ -58,7 +64,7 @@ export default function BillingPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {plans.map((plan, idx) => (
+          {currentPlans.map((plan, idx) => (
             <motion.div key={plan.name} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} className={`relative bg-card/50 backdrop-blur-sm border rounded-2xl p-6 ${plan.current ? "border-orange-500/50 ring-1 ring-orange-500/20" : "border-border hover:border-orange-500/30"} transition-all`}>
               {plan.popular && <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-orange-500 to-orange-600 text-white text-xs font-medium rounded-full">Current Plan</span>}
               <h3 className="text-lg font-semibold text-foreground mt-2">{plan.name}</h3>

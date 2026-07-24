@@ -13,10 +13,10 @@ const plans = [
   {
     id: "forex-gold",
     name: "Forex & Gold",
-    oldPrice: 79,
-    price: 49,
-    annualOldPrice: 799,
-    annualPrice: 499,
+    oldPrice: 99,
+    price: 29,
+    annualOldPrice: 349,
+    annualPrice: 199,
     icon: Coins,
     detail: "Forex, gold and major pairs",
   },
@@ -24,9 +24,9 @@ const plans = [
     id: "synthetic",
     name: "Synthetic Indices",
     oldPrice: 99,
-    price: 79,
-    annualOldPrice: 999,
-    annualPrice: 799,
+    price: 29,
+    annualOldPrice: 349,
+    annualPrice: 199,
     icon: TrendingUp,
     popular: true,
     detail: "Crash, Boom, Volatility and Jump indices",
@@ -34,10 +34,10 @@ const plans = [
   {
     id: "full-suite",
     name: "Full Suite",
-    oldPrice: 179,
-    price: 129,
-    annualOldPrice: 1799,
-    annualPrice: 1299,
+    oldPrice: 199,
+    price: 49,
+    annualOldPrice: 599,
+    annualPrice: 299,
     icon: Layers,
     detail: "Full access to all markets and tools",
   },
@@ -106,7 +106,6 @@ export default function LicensePage() {
 
   const selectedPlanDetails = plans.find((plan) => plan.id === selectedPlan)
   const selectedPaymentDetails = paymentMethods.find((method) => method.id === selectedPayment)
-  const selectedSupportDetails = supportChannels.find((channel) => channel.id === selectedSupport)
 
   useEffect(() => {
     return () => {
@@ -159,11 +158,6 @@ export default function LicensePage() {
 
     if (!response.ok) {
       setSubmitError(result?.error ?? "Erreur lors de l’envoi de la preuve.")
-      return
-    }
-
-    if (selectedSupportDetails?.href) {
-      window.location.href = selectedSupportDetails.href
       return
     }
 
@@ -507,10 +501,8 @@ export default function LicensePage() {
                 className="w-full h-14 text-base font-medium bg-[#FF6B00] text-white hover:bg-[#CC5500] rounded-xl disabled:opacity-50"
               >
                 {isSubmitting
-                  ? "Submitting..."
-                  : selectedSupportDetails
-                    ? `Continue with ${selectedSupportDetails.name}`
-                    : t("licensePage.submitVerification")}
+                  ? t("licensePage.processing")
+                  : t("licensePage.submitVerification")}
               </Button>
               {submitError && (
                 <p className="text-center text-sm text-destructive mt-4">{submitError}</p>

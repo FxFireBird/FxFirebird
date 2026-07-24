@@ -26,7 +26,7 @@ export default function DashboardLayout({
     return (
       <div className="min-h-screen bg-background text-foreground flex items-center justify-center px-6">
         <div className="rounded-3xl border border-border bg-card p-8 text-center">
-          <p className="text-base">Redirection vers la page de connexion...</p>
+          <p className="text-base">Redirecting to the login page...</p>
         </div>
       </div>
     )

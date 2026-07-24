@@ -10,7 +10,7 @@ const plans = [
   {
     name: "Forex & Gold",
     monthlyPrice: 29,
-    annualPrice: 279,
+    annualPrice: 199,
     description: "Designed for traders focused on traditional markets.",
     features: [
       "Forex Pairs",
@@ -27,8 +27,8 @@ const plans = [
   },
   {
     name: "Synthetic Indices",
-    monthlyPrice: 39,
-    annualPrice: 379,
+    monthlyPrice: 29,
+    annualPrice: 199,
     description: "Built for traders focused on Deriv synthetic markets.",
     features: [
       "Boom & Crash",
@@ -46,8 +46,8 @@ const plans = [
   },
   {
     name: "Full Suite",
-    monthlyPrice: 59,
-    annualPrice: 569,
+    monthlyPrice: 49,
+    annualPrice: 299,
     description: "Complete access to the Bagayoda ecosystem.",
     features: [
       "Forex Pairs",
