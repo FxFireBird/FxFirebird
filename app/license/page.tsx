@@ -43,9 +43,24 @@ const paymentMethods = [
   ]
 
 const supportChannels = [
-  { id: "telegram", name: "Telegram", icon: MessageCircle },
-  { id: "whatsapp", name: "WhatsApp", icon: MessageCircle },
-  { id: "email", name: "Email", icon: Send },
+  {
+    id: "telegram",
+    name: "Telegram",
+    icon: MessageCircle,
+    href: "https://t.me/Anka_Oscar",
+  },
+  {
+    id: "whatsapp",
+    name: "WhatsApp",
+    icon: MessageCircle,
+    href: "https://wa.me/447441422111",
+  },
+  {
+    id: "email",
+    name: "Email",
+    icon: Send,
+    href: "mailto:site.fxfirebird@gmail.com",
+  },
 ]
 
 export default function LicensePage() {
@@ -61,6 +76,7 @@ export default function LicensePage() {
   const [submitError, setSubmitError] = useState<string | null>(null)
 
   const selectedPaymentDetails = paymentMethods.find((method) => method.id === selectedPayment)
+  const selectedSupportDetails = supportChannels.find((channel) => channel.id === selectedSupport)
 
   useEffect(() => {
     return () => {
@@ -113,6 +129,11 @@ export default function LicensePage() {
 
     if (!response.ok) {
       setSubmitError(result?.error ?? "Erreur lors de l’envoi de la preuve.")
+      return
+    }
+
+    if (selectedSupportDetails?.href) {
+      window.location.href = selectedSupportDetails.href
       return
     }
 
@@ -195,17 +216,7 @@ export default function LicensePage() {
           {/* Logo */}
           <div className="flex justify-center mb-8">
             <Link href="/" className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FF6B00]">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="h-5 w-5 text-white"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                </svg>
-              </div>
+              <img src="/logo1.png" alt="FxFirebird" className="h-12 w-12 object-contain" />
               <span className="text-xl font-semibold text-foreground tracking-tight">FxFirebird</span>
             </Link>
           </div>
@@ -433,7 +444,11 @@ export default function LicensePage() {
                 disabled={!selectedPlan || !selectedPayment || !transactionId || isSubmitting}
                 className="w-full h-14 text-base font-medium bg-[#FF6B00] text-white hover:bg-[#CC5500] rounded-xl disabled:opacity-50"
               >
-                {isSubmitting ? "Submitting..." : t("licensePage.submitVerification")}
+                {isSubmitting
+                  ? "Submitting..."
+                  : selectedSupportDetails
+                    ? `Continue with ${selectedSupportDetails.name}`
+                    : t("licensePage.submitVerification")}
               </Button>
               {submitError && (
                 <p className="text-center text-sm text-destructive mt-4">{submitError}</p>

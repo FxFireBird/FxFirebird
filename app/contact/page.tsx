@@ -64,17 +64,7 @@ export default function ContactPage() {
           {/* Logo */}
           <div className="flex justify-center mb-8">
             <Link href="/" className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FF6B00]">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="h-5 w-5 text-white"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                </svg>
-              </div>
+              <img src="/logo1.png" alt="FxFirebird" className="h-12 w-12 object-contain" />
               <span className="text-xl font-semibold text-foreground tracking-tight">FxFirebird</span>
             </Link>
           </div>

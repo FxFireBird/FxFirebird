@@ -1,7 +1,7 @@
 "use client"
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react"
-import { type Locale, getTranslation, languages } from "./translations"
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react"
+import { type Locale, getTranslation, languages, locales } from "./translations"
 
 interface I18nContextType {
   locale: Locale
@@ -15,9 +15,25 @@ const I18nContext = createContext<I18nContextType | null>(null)
 export function I18nProvider({ children, defaultLocale = "en" }: { children: ReactNode; defaultLocale?: Locale }) {
   const [locale, setLocaleState] = useState<Locale>(defaultLocale)
 
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return
+    }
+
+    const storedLocale = localStorage.getItem("fxfirebird-locale") as Locale | null
+    if (storedLocale && locales.includes(storedLocale)) {
+      setLocaleState(storedLocale)
+      return
+    }
+
+    const browserLocale = (navigator.language || navigator.userLanguage || defaultLocale).split("-")[0] as Locale
+    if (locales.includes(browserLocale)) {
+      setLocaleState(browserLocale)
+    }
+  }, [defaultLocale])
+
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale)
-    // Store in localStorage for persistence
     if (typeof window !== "undefined") {
       localStorage.setItem("fxfirebird-locale", newLocale)
     }
