@@ -37,7 +37,7 @@ export function Header() {
           <Link href="/" className="flex items-center gap-3">
             <div className="flex items-center justify-center">
   <img
-    src="/logo1.png"
+    src="/logo.png"
     alt="FxFirebird"
     className="h-10 w-10 object-contain"
   />

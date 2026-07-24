@@ -13,6 +13,14 @@ export default function RiskCalculatorPage() {
         "The calculator instantly computes the optimal lot size and displays your potential profit/loss.",
         "Review the risk-to-reward ratio and adjust your parameters as needed before executing the trade.",
       ]}
+      photoUploads={[
+        { label: "Screenshot 1", description: "Upload your first screenshot" },
+        { label: "Screenshot 2", description: "Upload your second screenshot" },
+        { label: "Screenshot 3", description: "Upload your third screenshot" },
+        { label: "Screenshot 4", description: "Upload your fourth screenshot" },
+        { label: "Screenshot 5", description: "Upload your fifth screenshot" },
+      ]}
+      youtubeUrl="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
       downloadUrl="#"
       guideUrl="#"
     />

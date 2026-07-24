@@ -4,8 +4,10 @@ import { useRouter } from "next/navigation"
 import { useTheme } from "next-themes"
 import { Sun, Moon, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useTranslation } from "@/lib/i18n"
 
 export function PortalHeader() {
+  const { t } = useTranslation()
   const { theme, setTheme } = useTheme()
   const router = useRouter()
 
@@ -26,7 +28,7 @@ export function PortalHeader() {
             className="flex items-center gap-3"
           >
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#FF6B00]">
-              <img src="/logo1.png" alt="FxFirebird" className="h-5 w-5 object-contain" />
+              <img src="/logo.png" alt="FxFirebird" className="h-5 w-5 object-contain" />
             </div>
             <span className="text-xl font-semibold text-foreground tracking-tight">FxFirebird</span>
           </button>
@@ -44,7 +46,7 @@ export function PortalHeader() {
 
             <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground" onClick={handleLogout}>
               <LogOut className="h-4 w-4 mr-2" />
-              Logout
+              {t("dashboard.logout")}
             </Button>
           </div>
         </div>

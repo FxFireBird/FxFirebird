@@ -64,7 +64,7 @@ export default function ContactPage() {
           {/* Logo */}
           <div className="flex justify-center mb-8">
             <Link href="/" className="flex items-center gap-3">
-              <img src="/logo1.png" alt="FxFirebird" className="h-12 w-12 object-contain" />
+              <img src="/logo.png" alt="FxFirebird" className="h-12 w-12 object-contain" />
               <span className="text-xl font-semibold text-foreground tracking-tight">FxFirebird</span>
             </Link>
           </div>
@@ -116,10 +116,10 @@ export default function ContactPage() {
             className="mt-12 text-center"
           >
             <p className="text-sm text-muted-foreground">
-              Support hours: Monday - Friday, 9:00 AM - 6:00 PM (UTC)
+              {t("contact.hours")}
             </p>
             <p className="text-sm text-muted-foreground mt-1">
-              Average response time: {"<"} 24 hours
+              {t("contact.responseTime")}
             </p>
           </motion.div>
         </div>

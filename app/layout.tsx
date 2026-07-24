@@ -29,9 +29,9 @@ export const metadata: Metadata = {
   authors: [{ name: 'FxFirebird' }],
 
   icons: {
-    icon: '/logo1.png',
-    shortcut: '/logo1.png',
-    apple: '/logo1.png',
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
   },
 
   openGraph: {

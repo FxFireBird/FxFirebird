@@ -2,34 +2,36 @@
 
 import { motion } from "framer-motion"
 import { ShieldCheck, Globe, Cloud, TrendingDown } from "lucide-react"
+import { useTranslation } from "@/lib/i18n"
 
 const features = [
   {
     icon: ShieldCheck,
-    title: "Adaptive Risk",
-    description: "Dynamic position sizing that adapts to market conditions and account size.",
+    titleKey: "bagayodaFeatures.adaptiveRisk.title",
+    descriptionKey: "bagayodaFeatures.adaptiveRisk.desc",
   },
   {
     icon: Globe,
-    title: "Multi Market",
-    description: "Forex, Gold and Synthetic Indices managed from one ecosystem.",
+    titleKey: "bagayodaFeatures.multiMarket.title",
+    descriptionKey: "bagayodaFeatures.multiMarket.desc",
   },
   {
     icon: Cloud,
-    title: "Cloud Licensing",
-    description: "Secure cloud-based licensing with instant activation across devices.",
+    titleKey: "bagayodaFeatures.cloudLicensing.title",
+    descriptionKey: "bagayodaFeatures.cloudLicensing.desc",
   },
   {
     icon: TrendingDown,
-    title: "Drawdown Protection",
-    description: "Built-in controls to protect capital during adverse market conditions.",
+    titleKey: "bagayodaFeatures.drawdownProtection.title",
+    descriptionKey: "bagayodaFeatures.drawdownProtection.desc",
   },
 ]
 
 export function BagayodaSection() {
+  const { t } = useTranslation()
+
   return (
     <section id="bagayoda" className="relative py-20 lg:py-24 bg-background dark:bg-black">
-      {/* Background accent */}
       <div className="pointer-events-none absolute right-0 top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-[#FF6B00]/5 blur-[150px]" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
@@ -41,17 +43,17 @@ export function BagayodaSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Bagayoda System Features
+            {t("bagayodaFeatures.title")}
           </h2>
           <p className="text-base text-muted-foreground max-w-xl mx-auto">
-            Professional trading infrastructure for serious traders.
+            {t("bagayodaFeatures.subtitle")}
           </p>
         </motion.div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((feature, index) => (
             <motion.div
-              key={feature.title}
+              key={feature.titleKey}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -62,8 +64,8 @@ export function BagayodaSection() {
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF6B00]/10">
                   <feature.icon className="h-6 w-6 text-[#FF6B00]" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-foreground">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
+                <h3 className="mb-2 text-lg font-semibold text-foreground">{t(feature.titleKey)}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{t(feature.descriptionKey)}</p>
               </div>
             </motion.div>
           ))}

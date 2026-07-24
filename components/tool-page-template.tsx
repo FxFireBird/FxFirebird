@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, Download, FileText, ExternalLink } from "lucide-react"
+import { ArrowLeft, Download, FileText, ExternalLink, Upload } from "lucide-react"
 import { useTranslation } from "@/lib/i18n"
 
 interface ToolPageProps {
@@ -15,6 +15,8 @@ interface ToolPageProps {
   downloadUrl?: string
   guideUrl?: string
   externalUrl?: string
+  youtubeUrl?: string
+  photoUploads?: { label: string; description: string }[]
 }
 
 export function ToolPageTemplate({
@@ -25,46 +27,33 @@ export function ToolPageTemplate({
   downloadUrl,
   guideUrl,
   externalUrl,
+  youtubeUrl,
+  photoUploads,
 }: ToolPageProps) {
   const { t } = useTranslation()
 
   return (
     <div className="min-h-screen bg-background dark:bg-black">
-      {/* Background effects */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-1/4 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FF6B00]/10 blur-[150px]" />
       </div>
 
-      {/* Header */}
       <header className="relative z-10 px-6 py-6">
         <Link href="/#tools" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
           <ArrowLeft className="h-4 w-4" />
-          Back to Free Tools
+          {t("freeTools.accessTool")}
         </Link>
       </header>
 
-      {/* Main */}
       <main className="relative z-10 px-6 py-12">
         <div className="max-w-4xl mx-auto">
-          {/* Logo */}
           <div className="flex justify-center mb-8">
             <Link href="/" className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FF6B00]">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="h-5 w-5 text-white"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                </svg>
-              </div>
+              <img src="/logo.png" alt="FxFirebird" className="h-10 w-10 object-contain" />
               <span className="text-xl font-semibold text-foreground tracking-tight">FxFirebird</span>
             </Link>
           </div>
 
-          {/* Hero */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -78,7 +67,25 @@ export function ToolPageTemplate({
             </p>
           </motion.div>
 
-          {/* Tool Image */}
+          {youtubeUrl && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="mb-12 rounded-2xl border border-border bg-card overflow-hidden"
+            >
+              <div className="aspect-video relative">
+                <iframe
+                  src={youtubeUrl.replace('youtube.com/watch?v=', 'youtube.com/embed/').replace('youtu.be/', 'youtube.com/embed/')}
+                  title={title}
+                  className="w-full h-full"
+                  allowFullScreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                />
+              </div>
+            </motion.div>
+          )}
+
           {imageSrc && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -97,14 +104,13 @@ export function ToolPageTemplate({
             </motion.div>
           )}
 
-          {/* How It Works */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="mb-12"
           >
-            <h2 className="text-2xl font-semibold text-foreground mb-6">How It Works</h2>
+            <h2 className="text-2xl font-semibold text-foreground mb-6">{t("howItWorks.title")}</h2>
             <div className="space-y-4">
               {howItWorks.map((step, index) => (
                 <div key={index} className="flex gap-4 items-start">
@@ -117,7 +123,38 @@ export function ToolPageTemplate({
             </div>
           </motion.div>
 
-          {/* Actions */}
+          {photoUploads && photoUploads.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="mb-12"
+            >
+              <h2 className="text-2xl font-semibold text-foreground mb-6">{t("toolPage.uploadPhotos")}</h2>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {photoUploads.map((upload, index) => (
+                  <div key={index} className="rounded-xl border border-dashed border-border bg-card p-6 text-center">
+                    <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
+                    <p className="text-sm font-medium text-foreground mb-1">{upload.label}</p>
+                    <p className="text-xs text-muted-foreground">{upload.description}</p>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      id={`photo-upload-${index}`}
+                    />
+                    <label
+                      htmlFor={`photo-upload-${index}`}
+                      className="mt-3 inline-block cursor-pointer text-sm text-[#FF6B00] hover:underline"
+                    >
+                      {t("toolPage.uploadLabel")}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -131,7 +168,7 @@ export function ToolPageTemplate({
               >
                 <a href={downloadUrl} download>
                   <Download className="mr-2 h-4 w-4" />
-                  Download Tool
+                  {t("toolPage.download")}
                 </a>
               </Button>
             )}
@@ -143,7 +180,7 @@ export function ToolPageTemplate({
               >
                 <a href={guideUrl} download>
                   <FileText className="mr-2 h-4 w-4" />
-                  Download User Guide
+                  {t("toolPage.guide")}
                 </a>
               </Button>
             )}
@@ -155,7 +192,7 @@ export function ToolPageTemplate({
               >
                 <a href={externalUrl} target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="mr-2 h-4 w-4" />
-                  Open Tool
+                  {t("toolPage.open")}
                 </a>
               </Button>
             )}

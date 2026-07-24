@@ -13,6 +13,14 @@ export default function TradeCopierPage() {
         "On the slave accounts, enter the master account connection details and set your copying preferences (lot multiplier, symbol mapping, etc.).",
         "All trades from the master account will be automatically replicated on the slave accounts in real-time.",
       ]}
+      photoUploads={[
+        { label: "Screenshot 1", description: "Upload your first screenshot" },
+        { label: "Screenshot 2", description: "Upload your second screenshot" },
+        { label: "Screenshot 3", description: "Upload your third screenshot" },
+        { label: "Screenshot 4", description: "Upload your fourth screenshot" },
+        { label: "Screenshot 5", description: "Upload your fifth screenshot" },
+      ]}
+      youtubeUrl="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
       downloadUrl="#"
       guideUrl="#"
     />

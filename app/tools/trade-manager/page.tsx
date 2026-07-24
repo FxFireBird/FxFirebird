@@ -13,6 +13,14 @@ export default function TradeManagerPage() {
         "Use the one-click buttons to modify stop loss, take profit, or close positions partially or fully.",
         "Enable auto-break-even or trailing stop features to protect your profits automatically.",
       ]}
+      photoUploads={[
+        { label: "Screenshot 1", description: "Upload your first screenshot" },
+        { label: "Screenshot 2", description: "Upload your second screenshot" },
+        { label: "Screenshot 3", description: "Upload your third screenshot" },
+        { label: "Screenshot 4", description: "Upload your fourth screenshot" },
+        { label: "Screenshot 5", description: "Upload your fifth screenshot" },
+      ]}
+      youtubeUrl="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
       downloadUrl="#"
       guideUrl="#"
     />

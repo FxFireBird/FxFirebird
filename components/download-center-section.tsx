@@ -3,52 +3,52 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Download, Clock, FileText, BookOpen } from "lucide-react"
+import { useTranslation } from "@/lib/i18n"
 
 const downloads = [
   {
     logo: "/logos/mt5.png",
-    title: "Bagayoda For MT5",
-    description:
-      "Full-featured expert advisor for MetaTrader 5 platform with cloud integration.",
+    titleKey: "downloads.mt5.title",
+    descriptionKey: "downloads.mt5.desc",
     version: "v1.0.0",
     size: "336 KB",
     available: true,
-    buttonText: "Download for MT5",
+    buttonTextKey: "downloads.downloadForMT5",
     href: "/downloads/BAGAYODA_NoDLL.ex5",
   },
   {
     logo: "/logos/mt4.png",
-    title: "Bagayoda For MT4",
-    description:
-      "Expert advisor optimized for MetaTrader 4 platform compatibility.",
+    titleKey: "downloads.mt4.title",
+    descriptionKey: "downloads.mt4.desc",
     version: "Coming Soon",
     size: "-",
     available: false,
-    buttonText: "Coming Soon",
+    buttonTextKey: "downloads.comingSoon",
   },
 ]
 
 const guides = [
   {
     icon: BookOpen,
-    title: "MT5 Integration And Risk Management Guide",
-    description:
-      "Step-by-step instructions for installing, configuring and managing risk settings with Bagayoda.",
+    titleKey: "downloads.mt5Guide.title",
+    descriptionKey: "downloads.mt5Guide.desc",
+    typeKey: "downloads.software",
     type: "PDF",
     pages: "3 pages",
-    buttonText: "Download Guide",
+    buttonTextKey: "downloads.downloadGuide",
     href: "/downloads/USER_GUIDE_3Pages.pdf",
   },
 ]
 
 export function DownloadCenterSection() {
+  const { t } = useTranslation()
+
   return (
     <section
       id="downloads"
       className="relative py-20 lg:py-24 bg-card dark:bg-neutral-950"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,28 +57,23 @@ export function DownloadCenterSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Download Center
+            {t("downloads.title")}
           </h2>
 
           <p className="text-base text-muted-foreground max-w-xl mx-auto">
-            Get the Bagayoda software and documentation.
+            {t("downloads.subtitle")}
           </p>
         </motion.div>
 
-        {/* SOFTWARE */}
-
         <div className="mb-16">
-
           <h3 className="text-lg font-semibold text-foreground mb-6">
-            Software
+            {t("downloads.software")}
           </h3>
 
           <div className="grid gap-4 md:grid-cols-2">
-
             {downloads.map((item, index) => (
-
               <motion.div
-                key={item.title}
+                key={item.titleKey}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -89,9 +84,7 @@ export function DownloadCenterSection() {
                     : "border-border bg-background opacity-75"
                 }`}
               >
-
                 <div className="flex items-start gap-4 mb-4">
-
                   <div
                     className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 ${
                       item.available ? "bg-[#FF6B00]/10" : "bg-muted"
@@ -99,27 +92,23 @@ export function DownloadCenterSection() {
                   >
                     <img
                       src={item.logo}
-                      alt={item.title}
+                      alt={t(item.titleKey)}
                       className="h-9 w-9 object-contain"
                     />
                   </div>
 
                   <div className="flex-1 min-w-0">
-
                     <h4 className="text-lg font-semibold text-foreground mb-1">
-                      {item.title}
+                      {t(item.titleKey)}
                     </h4>
 
                     <p className="text-sm text-muted-foreground">
-                      {item.description}
+                      {t(item.descriptionKey)}
                     </p>
-
                   </div>
-
                 </div>
 
                 <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
-
                   <span
                     className={`px-2 py-1 rounded-md ${
                       item.available
@@ -133,7 +122,6 @@ export function DownloadCenterSection() {
                   {item.available && (
                     <span>{item.size}</span>
                   )}
-
                 </div>
 
                 {item.available ? (
@@ -143,7 +131,7 @@ export function DownloadCenterSection() {
                   >
                     <a href={item.href} download>
                       <Download className="mr-2 h-4 w-4" />
-                      {item.buttonText}
+                      {t(item.buttonTextKey)}
                     </a>
                   </Button>
                 ) : (
@@ -152,68 +140,52 @@ export function DownloadCenterSection() {
                     disabled
                   >
                     <Clock className="mr-2 h-4 w-4" />
-                    {item.buttonText}
+                    {t(item.buttonTextKey)}
                   </Button>
                 )}
-
               </motion.div>
-
             ))}
-
           </div>
-
         </div>
 
-        {/* USER MANUAL */}
-
         <div className="mb-16">
-
           <h3 className="text-lg font-semibold text-foreground mb-6">
-            User Manual
+            {t("downloads.userManual")}
           </h3>
 
           <div className="max-w-2xl">
-
             {guides.map((item, index) => (
-
               <motion.div
-                key={item.title}
+                key={item.titleKey}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 + 0.2, duration: 0.5 }}
                 className="relative flex flex-col rounded-2xl border border-border bg-background p-6"
               >
-
                 <div className="flex items-start gap-4 mb-4">
-
                   <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center shrink-0">
                     <item.icon className="w-6 h-6 text-muted-foreground" />
                   </div>
 
                   <div className="flex-1 min-w-0">
-
                     <h4 className="text-lg font-semibold text-foreground mb-1">
-                      {item.title}
+                      {t(item.titleKey)}
                     </h4>
 
                     <p className="text-sm text-muted-foreground">
-                      {item.description}
+                      {t(item.descriptionKey)}
                     </p>
-
                   </div>
-
                 </div>
 
                 <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
-
                   <span className="px-2 py-1 rounded-md bg-muted flex items-center gap-1">
                     <FileText className="w-3 h-3" />
                     {item.type}
                   </span>
 
                   <span>{item.pages}</span>
-
                 </div>
 
                 <Button
@@ -223,28 +195,20 @@ export function DownloadCenterSection() {
                 >
                   <a href={item.href} download>
                     <Download className="mr-2 h-4 w-4" />
-                    {item.buttonText}
+                    {t(item.buttonTextKey)}
                   </a>
                 </Button>
-
               </motion.div>
-
             ))}
-
           </div>
-
         </div>
 
-        {/* RECOMMENDED PARTNERS */}
-
         <div>
-
           <h3 className="text-2xl font-bold text-center text-foreground mb-10">
-            Recommended Partners
+            {t("downloads.partners.title")}
           </h3>
 
           <div className="grid md:grid-cols-3 gap-6">
-
             <a
               href="https://track.deriv.com/_lUPrAuH_5BW2vdm9PpHVCmNd7ZgqdRLk/1/"
               target="_blank"
@@ -256,9 +220,8 @@ export function DownloadCenterSection() {
                 alt="Deriv"
                 className="h-12 mx-auto object-contain"
               />
-
               <p className="mt-4 text-sm text-muted-foreground">
-                Recommended Broker
+                {t("downloads.broker.title")}
               </p>
             </a>
 
@@ -273,9 +236,8 @@ export function DownloadCenterSection() {
                 alt="StarTrader"
                 className="h-12 mx-auto object-contain"
               />
-
               <p className="mt-4 text-sm text-muted-foreground">
-                Professional Trading Broker
+                {t("downloads.broker.desc")}
               </p>
             </a>
 
@@ -290,16 +252,12 @@ export function DownloadCenterSection() {
                 alt="GoVPSFX"
                 className="h-12 mx-auto object-contain"
               />
-
               <p className="mt-4 text-sm text-muted-foreground">
-                Recommended VPS Provider
+                {t("downloads.vps.title")}
               </p>
             </a>
-
           </div>
-
         </div>
-
       </div>
     </section>
   )

@@ -73,19 +73,19 @@ const paymentMethods = [
 const supportChannels = [
   {
     id: "telegram",
-    name: "Telegram",
+    nameKey: "support.telegram",
     icon: MessageCircle,
     href: "https://t.me/Anka_Oscar",
   },
   {
     id: "whatsapp",
-    name: "WhatsApp",
+    nameKey: "support.whatsapp",
     icon: MessageCircle,
     href: "https://wa.me/447441422111",
   },
   {
     id: "email",
-    name: "Email",
+    nameKey: "support.email",
     icon: Send,
     href: "mailto:site.fxfirebird@gmail.com",
   },
@@ -478,7 +478,7 @@ export default function LicensePage() {
                     <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
                       <channel.icon className="w-5 h-5 text-muted-foreground" />
                     </div>
-                    <span className="text-sm font-medium text-foreground">{channel.name}</span>
+                    <span className="text-sm font-medium text-foreground">{t(channel.nameKey)}</span>
                     {selectedSupport === channel.id && (
                       <div className="absolute top-3 right-3 w-4 h-4 rounded-full bg-[#FF6B00] flex items-center justify-center">
                         <Check className="w-2.5 h-2.5 text-white" />
