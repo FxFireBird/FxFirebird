@@ -14,15 +14,14 @@ export default function TradeManagerPage() {
         "Enable auto-break-even or trailing stop features to protect your profits automatically.",
       ]}
       photoUploads={[
-        { label: "Screenshot 1", description: "Upload your first screenshot" },
-        { label: "Screenshot 2", description: "Upload your second screenshot" },
-        { label: "Screenshot 3", description: "Upload your third screenshot" },
-        { label: "Screenshot 4", description: "Upload your fourth screenshot" },
-        { label: "Screenshot 5", description: "Upload your fifth screenshot" },
+        { label: "Photo 1", description: "Upload your first photo (trade_manager_photo1.png)" },
+        { label: "Photo 2", description: "Upload your second photo (trade_manager_photo2.png)" },
+        { label: "Photo 3", description: "Upload your third photo (trade_manager_photo3.png)" },
+        { label: "Photo 4", description: "Upload your fourth photo (trade_manager_photo4.png)" },
       ]}
       youtubeUrl="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-      downloadUrl="#"
-      guideUrl="#"
+      downloadUrl="/downloads/BAGAYODA_NoDLL.ex5"
+      guideUrl="/downloads/USER_GUIDE_3Pages.pdf"
     />
   )
 }

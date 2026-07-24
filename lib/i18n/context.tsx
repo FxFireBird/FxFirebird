@@ -12,8 +12,15 @@ interface I18nContextType {
 
 const I18nContext = createContext<I18nContextType | null>(null)
 
-export function I18nProvider({ children, defaultLocale = "en" }: { children: ReactNode; defaultLocale?: Locale }) {
-  const [locale, setLocaleState] = useState<Locale>(defaultLocale)
+export function I18nProvider({ children, defaultLocale }: { children: ReactNode; defaultLocale?: Locale }) {
+  const [locale, setLocaleState] = useState<Locale>(() => {
+    if (typeof window === "undefined") return defaultLocale ?? "en"
+    const storedLocale = localStorage.getItem("fxfirebird-locale") as Locale | null
+    if (storedLocale && locales.includes(storedLocale)) return storedLocale
+    const browserLocale = (navigator.language || navigator.userLanguage || "en").split("-")[0] as Locale
+    if (locales.includes(browserLocale)) return browserLocale
+    return defaultLocale ?? "en"
+  })
 
   useEffect(() => {
     if (typeof window === "undefined") {

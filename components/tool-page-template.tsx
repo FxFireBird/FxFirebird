@@ -19,6 +19,19 @@ interface ToolPageProps {
   photoUploads?: { label: string; description: string }[]
 }
 
+function getEmbedUrl(url: string): string {
+  let embedUrl = url
+  if (embedUrl.includes("youtube.com/watch?v=")) {
+    embedUrl = embedUrl.replace("youtube.com/watch?v=", "youtube.com/embed/")
+  } else if (embedUrl.includes("youtu.be/")) {
+    embedUrl = embedUrl.replace("youtu.be/", "youtube.com/embed/")
+  } else if (!embedUrl.includes("youtube.com/embed/")) {
+    return embedUrl
+  }
+  const sep = embedUrl.includes("?") ? "&" : "?"
+  return embedUrl + sep + "autoplay=1"
+}
+
 export function ToolPageTemplate({
   title,
   description,
@@ -76,7 +89,7 @@ export function ToolPageTemplate({
             >
               <div className="aspect-video relative">
                 <iframe
-                  src={youtubeUrl.replace('youtube.com/watch?v=', 'youtube.com/embed/').replace('youtu.be/', 'youtube.com/embed/')}
+                  src={getEmbedUrl(youtubeUrl)}
                   title={title}
                   className="w-full h-full"
                   allowFullScreen

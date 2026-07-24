@@ -6,23 +6,23 @@ export default function TradeCopierPage() {
   return (
     <ToolPageTemplate
       title="FxF Trade Copier"
-      description="Copy trades across multiple accounts instantly with our reliable trade copying solution. Perfect for managing multiple accounts or following signal providers."
+      description="The FxF MT5 Copier V10 is a high-performance local trade copier designed specifically for MetaTrader 5. It allows for instant synchronization of trading activity between two or more MT5 terminals running on the same computer or VPS."
       howItWorks={[
-        "Install the Trade Copier on both your master (source) and slave (destination) MetaTrader platforms.",
-        "Configure the master account to send trade signals by entering the license key and enabling transmission.",
-        "On the slave accounts, enter the master account connection details and set your copying preferences (lot multiplier, symbol mapping, etc.).",
-        "All trades from the master account will be automatically replicated on the slave accounts in real-time.",
+        "The FxF MT5 Copier V10 is a high-performance local trade copier designed specifically for MetaTrader 5. It allows for instant synchronization of trading activity between two or more MT5 terminals running on the same computer or VPS.",
+        "Whether you are managing multiple accounts or mirroring a professional strategy, FxF Copier provides the tools to manage risk and entry quality with precision.",
+        "The UltraSync interface is divided into two primary modes. You must select the appropriate role for each terminal.",
+        "The Master terminal is the source of the trades. When active, the EA monitors all open positions and pending orders on the account. It writes trade data to a secure local bridge file every tick. Multiple Slave terminals can follow a single Master.",
+        "The Slave terminal is the receiver. It reads the bridge file and replicates the Master's actions. It provides a dedicated control panel to customize how trades are received.",
       ]}
       photoUploads={[
-        { label: "Screenshot 1", description: "Upload your first screenshot" },
-        { label: "Screenshot 2", description: "Upload your second screenshot" },
-        { label: "Screenshot 3", description: "Upload your third screenshot" },
-        { label: "Screenshot 4", description: "Upload your fourth screenshot" },
-        { label: "Screenshot 5", description: "Upload your fifth screenshot" },
+        { label: "Photo 1", description: "Upload your first photo (fxf_copier_photo1.png)" },
+        { label: "Photo 2", description: "Upload your second photo (fxf_copier_photo2.png)" },
+        { label: "Photo 3", description: "Upload your third photo (fxf_copier_photo3.png)" },
+        { label: "Photo 4", description: "Upload your fourth photo (fxf_copier_photo4.png)" },
       ]}
-      youtubeUrl="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-      downloadUrl="#"
-      guideUrl="#"
+      youtubeUrl="https://youtu.be/tclxMnjKl7k"
+      downloadUrl="/downloads/FxF_Copier.ex5"
+      guideUrl="/downloads/FxF_Copier_Guide.pdf"
     />
   )
 }

@@ -14,15 +14,14 @@ export default function RiskCalculatorPage() {
         "Review the risk-to-reward ratio and adjust your parameters as needed before executing the trade.",
       ]}
       photoUploads={[
-        { label: "Screenshot 1", description: "Upload your first screenshot" },
-        { label: "Screenshot 2", description: "Upload your second screenshot" },
-        { label: "Screenshot 3", description: "Upload your third screenshot" },
-        { label: "Screenshot 4", description: "Upload your fourth screenshot" },
-        { label: "Screenshot 5", description: "Upload your fifth screenshot" },
+        { label: "Photo 1", description: "Upload your first photo (calculator_photo1.png)" },
+        { label: "Photo 2", description: "Upload your second photo (calculator_photo2.png)" },
+        { label: "Photo 3", description: "Upload your third photo (calculator_photo3.png)" },
+        { label: "Photo 4", description: "Upload your fourth photo (calculator_photo4.png)" },
       ]}
       youtubeUrl="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-      downloadUrl="#"
-      guideUrl="#"
+      downloadUrl="/downloads/BAGAYODA_NoDLL.ex5"
+      guideUrl="/downloads/USER_GUIDE_3Pages.pdf"
     />
   )
 }

@@ -14,11 +14,10 @@ export default function EAsPage() {
         "Attach the EA to your desired chart and configure the input parameters according to your trading strategy.",
       ]}
       photoUploads={[
-        { label: "Screenshot 1", description: "Upload your first screenshot" },
-        { label: "Screenshot 2", description: "Upload your second screenshot" },
-        { label: "Screenshot 3", description: "Upload your third screenshot" },
-        { label: "Screenshot 4", description: "Upload your fourth screenshot" },
-        { label: "Screenshot 5", description: "Upload your fifth screenshot" },
+        { label: "Photo 1", description: "Upload your first photo (fxf_copier_photo1.png)" },
+        { label: "Photo 2", description: "Upload your second photo (fxf_copier_photo2.png)" },
+        { label: "Photo 3", description: "Upload your third photo (fxf_copier_photo3.png)" },
+        { label: "Photo 4", description: "Upload your fourth photo (fxf_copier_photo4.png)" },
       ]}
       youtubeUrl="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
       downloadUrl="/downloads/BAGAYODA_NoDLL.ex5"

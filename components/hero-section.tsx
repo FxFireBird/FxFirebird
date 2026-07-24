@@ -32,8 +32,6 @@ export function HeroSection() {
             className="text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl xl:text-8xl"
           >
             {t("hero.title")}
-            <br />
-            <span className="text-[#FF6B00]">Scale Safer.</span>
           </motion.h1>
 
           <motion.p
