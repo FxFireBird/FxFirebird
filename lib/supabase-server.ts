@@ -16,4 +16,4 @@ export const supabaseServer = createClient(supabaseUrl, supabaseKey, {
   },
 })
 
-export const storageBucket = "payment-proofs"
+export const storageBucket = process.env.SUPABASE_STORAGE_BUCKET || "payment-proofs"

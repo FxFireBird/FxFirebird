@@ -1,6 +1,14 @@
 import { NextResponse } from "next/server"
 import { supabaseServer, storageBucket } from "@/lib/supabase-server"
 
+async function ensureBucketExists(bucket: string) {
+  const { data, error } = await supabaseServer.storage.createBucket(bucket, { public: true })
+  if (error && !error.message.includes("already exists")) {
+    return { error }
+  }
+  return { data }
+}
+
 export async function POST(request: Request) {
   const formData = await request.formData()
   const transactionId = formData.get("transactionId")?.toString().trim()
@@ -16,13 +24,29 @@ export async function POST(request: Request) {
   const filePath = `proofs/${Date.now()}-${filename}`
   const fileBuffer = Buffer.from(await proof.arrayBuffer())
 
-  const { error: uploadError } = await supabaseServer.storage
+  let { error: uploadError } = await supabaseServer.storage
     .from(storageBucket)
     .upload(filePath, fileBuffer, {
       contentType: proof.type,
       cacheControl: "3600",
       upsert: false,
     })
+
+  if (uploadError && uploadError.message.includes("Bucket not found")) {
+    const { error: bucketError } = await ensureBucketExists(storageBucket)
+    if (bucketError) {
+      return NextResponse.json({ error: bucketError.message }, { status: 500 })
+    }
+
+    const retry = await supabaseServer.storage
+      .from(storageBucket)
+      .upload(filePath, fileBuffer, {
+        contentType: proof.type,
+        cacheControl: "3600",
+        upsert: false,
+      })
+    uploadError = retry.error
+  }
 
   if (uploadError) {
     return NextResponse.json({ error: uploadError.message }, { status: 500 })

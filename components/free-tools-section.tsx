@@ -3,35 +3,37 @@
 import { motion } from "framer-motion"
 import { Calculator, Settings2, TrendingUp, Copy, ArrowRight } from "lucide-react"
 import Link from "next/link"
-
-const tools = [
-  {
-    icon: Calculator,
-    title: "Risk Calculator",
-    description: "Calculate optimal risk-to-reward ratios for your trades.",
-    href: "#",
-  },
-  {
-    icon: Settings2,
-    title: "MT5/MT4 EAs",
-    description: "Expert Advisors for MetaTrader platforms.",
-    href: "#",
-  },
-  {
-    icon: TrendingUp,
-    title: "Trade Manager",
-    description: "Manage all your active trades from one interface.",
-    href: "#",
-  },
-  {
-    icon: Copy,
-    title: "FxF Trade Copier",
-    description: "Copy trades across multiple accounts instantly.",
-    href: "#",
-  },
-]
+import { useTranslation } from "@/lib/i18n"
 
 export function FreeToolsSection() {
+  const { t } = useTranslation()
+
+  const tools = [
+    {
+      icon: Calculator,
+      title: t("freeTools.riskCalculator.title"),
+      description: t("freeTools.riskCalculator.desc"),
+      href: "/tools/risk-calculator",
+    },
+    {
+      icon: Settings2,
+      title: t("freeTools.eas.title"),
+      description: t("freeTools.eas.desc"),
+      href: "/tools/eas",
+    },
+    {
+      icon: TrendingUp,
+      title: t("freeTools.tradeManager.title"),
+      description: t("freeTools.tradeManager.desc"),
+      href: "/tools/trade-manager",
+    },
+    {
+      icon: Copy,
+      title: t("freeTools.tradeCopier.title"),
+      description: t("freeTools.tradeCopier.desc"),
+      href: "/tools/trade-copier",
+    },
+  ]
   return (
     <section id="tools" className="relative py-20 lg:py-24 bg-card dark:bg-neutral-950">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -43,18 +45,17 @@ export function FreeToolsSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Free Tools
+            {t("freeTools.title")}
           </h2>
           <p className="text-base text-muted-foreground max-w-xl mx-auto">
-            Professional-grade trading tools at no cost.
+            {t("freeTools.subtitle")}
           </p>
         </motion.div>
-
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {tools.map((tool, index) => (
             <motion.div
               key={tool.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.08, duration: 0.5 }}
@@ -69,7 +70,7 @@ export function FreeToolsSection() {
                 <h3 className="mb-2 text-lg font-semibold text-foreground">{tool.title}</h3>
                 <p className="flex-1 text-sm text-muted-foreground leading-relaxed">{tool.description}</p>
                 <div className="mt-4 flex items-center text-sm text-[#FF6B00] opacity-0 transition-opacity group-hover:opacity-100">
-                  <span>Access tool</span>
+                  <span>{t("freeTools.accessTool")}</span>
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </div>
               </Link>

@@ -1,24 +1,27 @@
 "use client"
 
 import Link from "next/link"
-
-const footerLinks = {
-  products: [
-    { label: "Bagayoda", href: "#features" },
-    { label: "Free Tools", href: "#tools" },
-    { label: "Downloads", href: "#downloads" },
-  ],
-  support: [
-    { label: "FAQ", href: "#faq" },
-    { label: "Contact", href: "mailto:support@fxfirebird.com" },
-  ],
-  legal: [
-    { label: "Privacy", href: "#" },
-    { label: "Terms", href: "#" },
-  ],
-}
+import { useTranslation } from "@/lib/i18n"
 
 export function Footer() {
+  const { t } = useTranslation()
+
+  const footerLinks = {
+    products: [
+      { label: t("footer.bagayoda"), href: "#features" },
+      { label: t("footer.freeTools"), href: "#tools" },
+      { label: t("footer.downloads"), href: "#downloads" },
+    ],
+    support: [
+      { label: t("footer.faq"), href: "#faq" },
+      { label: t("footer.contact"), href: "mailto:support@fxfirebird.com" },
+    ],
+    legal: [
+      { label: t("footer.privacy"), href: "/privacy" },
+      { label: t("footer.terms"), href: "/terms" },
+    ],
+  }
+
   return (
     <footer className="border-t border-border bg-background dark:bg-black">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
@@ -40,7 +43,7 @@ export function Footer() {
 
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-4">
-              Products
+              {t("footer.products")}
             </h3>
 
             <ul className="space-y-3">
@@ -59,7 +62,7 @@ export function Footer() {
 
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-4">
-              Support
+              {t("footer.support")}
             </h3>
 
             <ul className="space-y-3">
@@ -78,7 +81,7 @@ export function Footer() {
 
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-4">
-              Legal
+              {t("footer.legal")}
             </h3>
 
             <ul className="space-y-3">
@@ -102,11 +105,11 @@ export function Footer() {
           <div className="space-y-3">
 
             <p className="text-xs text-muted-foreground">
-              {new Date().getFullYear()} FxFirebird. All rights reserved.
+              {new Date().getFullYear()} FxFirebird. {t("footer.rights")}
             </p>
 
             <p className="text-[11px] text-muted-foreground leading-relaxed">
-              Risk Warning: Trading leveraged products carries a high level of risk and may not be suitable for all investors. Past performance does not guarantee future results.
+              {t("footer.riskWarning")}
             </p>
 
           </div>
