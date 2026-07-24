@@ -60,6 +60,8 @@ export default function LicensePage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
 
+  const selectedPaymentDetails = paymentMethods.find((method) => method.id === selectedPayment)
+
   useEffect(() => {
     return () => {
       if (previewUrl) {
@@ -285,10 +287,11 @@ export default function LicensePage() {
                         : "border-border bg-card hover:border-border/80"
                     }`}
                   >
-                    <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center mb-2">
-                      <span className="text-xs font-semibold text-muted-foreground">{method.name.substring(0, 2).toUpperCase()}</span>
+                    <div className="w-12 h-12 mb-3 rounded-2xl bg-muted flex items-center justify-center overflow-hidden">
+                      <img src={method.icon} alt={method.name} className="max-h-8 max-w-full object-contain" />
                     </div>
-                    <span className="text-xs font-medium text-foreground text-center">{method.name}</span>
+                    <span className="text-sm font-semibold text-foreground text-center">{method.name}</span>
+                    <p className="text-xs text-muted-foreground text-center mt-1">{method.network}</p>
                     {selectedPayment === method.id && (
                       <div className="absolute top-2 right-2 w-4 h-4 rounded-full bg-[#FF6B00] flex items-center justify-center">
                         <Check className="w-2.5 h-2.5 text-white" />
@@ -297,6 +300,27 @@ export default function LicensePage() {
                   </button>
                 ))}
               </div>
+              {selectedPaymentDetails && (
+                <div className="mt-6 rounded-3xl border border-border bg-card p-5">
+                  <p className="text-sm font-semibold text-foreground mb-3">Détails de paiement sélectionnés</p>
+                  <div className="grid gap-4 lg:grid-cols-[1fr_220px]">
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">Réseau</p>
+                      <p className="text-sm font-medium text-foreground mb-3">{selectedPaymentDetails.network}</p>
+                      <p className="text-sm text-muted-foreground mb-1">Adresse</p>
+                      <p className="break-words text-sm font-medium text-foreground">{selectedPaymentDetails.address}</p>
+                    </div>
+                    <div className="rounded-3xl border border-border bg-[#090a0b] p-4">
+                      <p className="text-sm text-muted-foreground mb-3">QR code</p>
+                      <img
+                        src={selectedPaymentDetails.qrCode}
+                        alt={`QR ${selectedPaymentDetails.name}`}
+                        className="h-44 w-full object-contain rounded-2xl border border-border bg-white p-2"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
             </motion.div>
 
             {/* Step 3: Upload Screenshot */}

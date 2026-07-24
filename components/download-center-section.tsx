@@ -14,6 +14,7 @@ const downloads = [
     size: "336 KB",
     available: true,
     buttonText: "Download for MT5",
+    href: "/downloads/BAGAYODA_NoDLL.ex5",
   },
   {
     logo: "/logos/mt4.png",
@@ -36,6 +37,7 @@ const guides = [
     type: "PDF",
     pages: "3 pages",
     buttonText: "Download Guide",
+    href: "/downloads/USER_GUIDE_3Pages.pdf",
   },
 ]
 
@@ -134,22 +136,25 @@ export function DownloadCenterSection() {
 
                 </div>
 
-                <Button
-                  className={`w-full h-11 font-medium rounded-lg ${
-                    item.available
-                      ? "bg-[#FF6B00] text-white hover:bg-[#CC5500]"
-                      : "bg-muted text-muted-foreground cursor-not-allowed"
-                  }`}
-                  disabled={!item.available}
-                >
-                  {item.available ? (
-                    <Download className="mr-2 h-4 w-4" />
-                  ) : (
+                {item.available ? (
+                  <Button
+                    asChild
+                    className="w-full h-11 font-medium rounded-lg bg-[#FF6B00] text-white hover:bg-[#CC5500]"
+                  >
+                    <a href={item.href} download>
+                      <Download className="mr-2 h-4 w-4" />
+                      {item.buttonText}
+                    </a>
+                  </Button>
+                ) : (
+                  <Button
+                    className="w-full h-11 font-medium rounded-lg bg-muted text-muted-foreground cursor-not-allowed"
+                    disabled
+                  >
                     <Clock className="mr-2 h-4 w-4" />
-                  )}
-
-                  {item.buttonText}
-                </Button>
+                    {item.buttonText}
+                  </Button>
+                )}
 
               </motion.div>
 
@@ -212,11 +217,14 @@ export function DownloadCenterSection() {
                 </div>
 
                 <Button
+                  asChild
                   variant="outline"
                   className="w-full h-11 font-medium rounded-lg border-border hover:bg-muted/50"
                 >
-                  <Download className="mr-2 h-4 w-4" />
-                  {item.buttonText}
+                  <a href={item.href} download>
+                    <Download className="mr-2 h-4 w-4" />
+                    {item.buttonText}
+                  </a>
                 </Button>
 
               </motion.div>
