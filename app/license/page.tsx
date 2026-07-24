@@ -117,15 +117,6 @@ export default function LicensePage() {
     setIsSubmitted(true)
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    // Simulate submission
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setIsSubmitted(true)
-    setIsSubmitting(false)
-  }
-
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-background dark:bg-black flex flex-col">
